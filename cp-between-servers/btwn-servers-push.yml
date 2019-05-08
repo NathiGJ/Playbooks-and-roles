@@ -1,0 +1,16 @@
+---
+- hosts: server-1
+  connection: ssh
+  gather_facts: yes
+  remote_user: ansi-admin
+  become: yes
+  become_user: root
+  
+  tasks:
+   - name: copy files between the server. From server2 to server1
+     synchronize:
+         src: "{{ source1 }}"
+         dest: "{{ destination1 }}"
+         mode: push
+     delegate_to: server-2
+  

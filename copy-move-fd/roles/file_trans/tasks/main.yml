@@ -1,0 +1,25 @@
+---
+- name: Create a file on server-1
+  file: 
+    path: /home/ansi-admin/newfiles/dummy_file_6
+    state: touch
+  when: ansible_hostname == 'server-1'
+
+- name: Create file on Server-2
+  file:
+   path: /home/ansi-admin/stores/store_file_6
+   state: touch
+  when: ansible_hostname == 'server-2'
+
+- name: copy file from Server-2 to ansible-master
+  fetch:
+    src: /home/ansi-admin/stores/store_file_6
+    dest: /root/backup/
+    flat: yes
+  when: ansible_hostname == 'server-2'
+
+- name: Now, copy file from Ansible-master to server-1
+  copy:
+   src: /root/backup/store_file_6
+   dest: /home/ansi-admin/newfiles
+  delegate_to: server-1

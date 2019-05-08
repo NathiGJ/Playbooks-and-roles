@@ -1,0 +1,10 @@
+---
+- hosts: trans
+  connection: ssh
+  gather_facts: yes
+  remote_user: ansi-admin
+  become: yes
+  become_user: root
+  roles: 
+     - file_trans
+  

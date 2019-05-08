@@ -1,0 +1,16 @@
+---
+- hosts: server-1
+  connection: ssh
+  gather_facts: yes
+  remote_user: ansi-admin
+  become: yes
+  become_user: root
+  
+  tasks:
+   - name: copy files between the server. From server1 to server2.Using pull method
+     synchronize:
+         src: /home/ansi-admin/newfiles/pull_from_server-2_toget_server-1_file
+         dest: /home/ansi-admin/stores
+         mode: pull
+     delegate_to: server-2
+  

@@ -1,0 +1,11 @@
+---
+- name: a file from server2 to server-1
+
+  tasks:
+   - name: processing
+     hosts: server-2 
+     synchronize:
+           src: "{{ source }}"
+           dest: "{{ destination }}"
+           mode: push
+     delegate_to: server-1
